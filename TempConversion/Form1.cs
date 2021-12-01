@@ -1,4 +1,17 @@
-﻿using System;
+﻿/*
+
+Author: Megan Sickinger
+
+Program Title: Test 2 : Temperature Conversion
+
+File Description:
+
+<Convert each temperature as the user changes the value and type of conversion.>
+
+*/
+
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +28,7 @@ namespace TempConversion
         public Form1()
         {
             InitializeComponent();
+            //load with no temperature displayed for gauge
             ImageTempGauge.Image = TempConversion.Properties.Resources.temperaturegauge_none;
         }
 
@@ -24,7 +38,7 @@ namespace TempConversion
         {
             temp = numberboxTempValue.Value;
          
-
+            //check which type in order to convert to others
                 if (comboUnits.SelectedItem.ToString() == "Fahrenheit")
                 {
                     convertF(temp);
@@ -49,7 +63,7 @@ namespace TempConversion
                     catch (Exception ex) //if kelvin is below 0 show error message
                     {
                         MessageBox.Show(ex.Message);
-                        numberboxTempValue.Value = 0;
+                        numberboxTempValue.Value = 0;//switch value to 0
                     }
                 }
             
@@ -61,7 +75,7 @@ namespace TempConversion
 
         }
 
-        public void convertF(decimal temp)
+        public void convertF(decimal temp) //converting fahrenheit to celsius and kelvin
         {
             decimal convertToC;
             decimal convertToK;
@@ -75,7 +89,7 @@ namespace TempConversion
             changeTempGauge(temp);
         }
 
-        public void convertC(decimal temp)
+        public void convertC(decimal temp)//convert celsius to fahrenheit and kelvin
         {
             decimal convertToF =0M;
             decimal convertToK = 0M;
@@ -88,7 +102,7 @@ namespace TempConversion
 
             changeTempGauge(convertToF);
         }
-        public void convertK(decimal temp)
+        public void convertK(decimal temp)//convert kelvin to celsius and fahrenheit
         {
             decimal convertToF;
            
@@ -104,7 +118,7 @@ namespace TempConversion
 
         }
 
-        public void changeTempGauge(decimal tempF)
+        public void changeTempGauge(decimal tempF)//change the image of temp gauge when temp changes
         {
             if (tempF > 95 )
             {
