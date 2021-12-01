@@ -79,7 +79,13 @@
             // 
             // numberboxTempValue
             // 
+            this.numberboxTempValue.DecimalPlaces = 2;
             this.numberboxTempValue.Font = new System.Drawing.Font("Courier New", 12F);
+            this.numberboxTempValue.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
             this.numberboxTempValue.Location = new System.Drawing.Point(433, 71);
             this.numberboxTempValue.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.numberboxTempValue.Maximum = new decimal(new int[] {

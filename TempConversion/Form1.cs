@@ -23,33 +23,36 @@ namespace TempConversion
         private void numberboxTempValue_ValueChanged(object sender, EventArgs e)
         {
             temp = numberboxTempValue.Value;
-            if (comboUnits.SelectedItem.ToString() == "Fahrenheit")
-            {
-                convertF(temp);
-               
-            }
-           else if (comboUnits.SelectedItem.ToString() == "Celsius")
-            {
-                convertC(temp);
-            }
-           else if( comboUnits.SelectedItem.ToString() == "Kelvin")
-            {
-                try
-                {
-                    if (temp >= 0)
-                        convertK(temp);
-                    else if (temp < 0)
-                    {
-                        throw new Exception("Kelvin Temperature cannot be below 0");
+         
 
+                if (comboUnits.SelectedItem.ToString() == "Fahrenheit")
+                {
+                    convertF(temp);
+
+                }
+                else if (comboUnits.SelectedItem.ToString() == "Celsius")
+                {
+                    convertC(temp);
+                }
+                else if (comboUnits.SelectedItem.ToString() == "Kelvin")
+                {
+                    try
+                    {
+                        if (temp >= 0)
+                            convertK(temp);
+                        else if (temp < 0)
+                        {
+                            throw new Exception("Kelvin Temperature cannot be below 0");
+
+                        }
+                    }
+                    catch (Exception ex) //if kelvin is below 0 show error message
+                    {
+                        MessageBox.Show(ex.Message);
+                        numberboxTempValue.Value = 0;
                     }
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                    numberboxTempValue.Value = 0;
-                }
-            }
+            
             
         }
 
@@ -62,26 +65,26 @@ namespace TempConversion
         {
             decimal convertToC;
             decimal convertToK;
-
-            convertToC = (5/9)* (temp - 32);
+            //for some unknown reason, when i use the formula 5/9*(temp-32) the label text does not change!
+            convertToC =temp*5/9-160/9;
             convertToK = convertToC+273.15M;
 
-            lblConversion1Value.Text = convertToC.ToString() + '°' + 'C';
-            lblConversion2Value.Text = convertToK.ToString() + '°' + 'K';
+            lblConversion1Value.Text = convertToC.ToString("0.00") + '°' + 'C';
+            lblConversion2Value.Text = convertToK.ToString("0.00") + '°' + 'K';
 
             changeTempGauge(temp);
         }
 
         public void convertC(decimal temp)
         {
-            decimal convertToF;
-            decimal convertToK;
-            
+            decimal convertToF =0M;
+            decimal convertToK = 0M;
+            MessageBox.Show(temp.ToString());
             convertToK = temp + 273.15M;
-            convertToF = temp * (9 / 5) + 32;
+            convertToF = (temp *9 / 5) + 32;
 
-            lblConversion1Value.Text = convertToF.ToString() + '°' + 'F';
-            lblConversion2Value.Text = convertToK.ToString() + '°' + 'K';
+            lblConversion1Value.Text = convertToF.ToString("0.00") + '°' + 'F';
+            lblConversion2Value.Text = convertToK.ToString("0.00") + '°' + 'K';
 
             changeTempGauge(convertToF);
         }
@@ -90,14 +93,12 @@ namespace TempConversion
             decimal convertToF;
            
             decimal convertToC;
-
-            
-
-            convertToF = (temp - 273.15M) * (9 / 5) + 32;
+           
             convertToC = temp - 273.15M;
+            convertToF =( convertToC *9 / 5) + 32;
 
-            lblConversion1Value.Text =convertToF.ToString() + '°'+'F';
-            lblConversion2Value.Text = convertToC.ToString() + '°'+'C';
+            lblConversion1Value.Text =convertToF.ToString("0.00") + '°'+'F';
+            lblConversion2Value.Text = convertToC.ToString("0.00") + '°'+'C';
 
             changeTempGauge(convertToF);
 
